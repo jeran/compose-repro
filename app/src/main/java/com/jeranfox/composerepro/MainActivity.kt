@@ -2,37 +2,49 @@ package com.jeranfox.composerepro
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.tooling.preview.Preview
-import com.jeranfox.composerepro.ui.ComposeReproTheme
 
 class MainActivity : AppCompatActivity() {
+
+    private var buttonIndex = 0
+    private var simpleButton by mutableStateOf(createButton())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
-            ComposeReproTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+            Column {
+                Button(onClick = {
+                    buttonIndex++
+                    simpleButton = createButton()
+                }) {
+                    Text("Switch Buttons")
                 }
+                simpleButton.Render()
             }
         }
     }
+
+    private fun createButton(): SimpleButton {
+        return SimpleButton("Button $buttonIndex")
+    }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+class SimpleButton(
+    private val text: String,
+) {
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeReproTheme {
-        Greeting("Android")
+    @Composable
+    fun Render() {
+        Button({ println(text) }) {
+            Text(text)
+        }
     }
 }
