@@ -1,6 +1,8 @@
 package com.jeranfox.composerepro
 
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
@@ -33,17 +35,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createButton(): SimpleButton {
-        return SimpleButton("Button $buttonIndex")
+        return SimpleButton(this, "Button $buttonIndex")
     }
 }
 
 class SimpleButton(
+    private val context: Context,
     private val text: String,
 ) {
 
     @Composable
     fun Render() {
-        Button({ println(text) }) {
+        Button({ Toast.makeText(context, text, Toast.LENGTH_SHORT).show() }) {
             Text(text)
         }
     }
