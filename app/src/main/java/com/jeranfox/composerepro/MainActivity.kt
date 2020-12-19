@@ -49,5 +49,16 @@ class SimpleButton(
         Button({ Toast.makeText(context, text, Toast.LENGTH_SHORT).show() }) {
             Text(text)
         }
+        // TODO: uncomment to fix
+//        val self = this
+//        Button(
+//                onClick = {
+//                    with(self) {
+//                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//        ) {
+//            Text(text)
+//        }
     }
 }
